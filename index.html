@@ -520,58 +520,25 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  /* ╔═══════════════════════════════════════════════════════════════════╗
-     ║                                                                     ║
-     ║        🛍️  VOS PRODUITS — MODIFIEZ ICI / EDIT PRODUCTS HERE          ║
-     ║                                                                     ║
-     ║  Pour AJOUTER un produit : copiez un bloc { ... } ci-dessous,       ║
-     ║  collez-le, et changez les valeurs. N'oubliez pas la virgule.       ║
-     ║                                                                     ║
-     ║  Pour MODIFIER : changez le texte entre guillemets "..." .          ║
-     ║  Pour SUPPRIMER : effacez tout le bloc { ... }, de { à },           ║
-     ║                                                                     ║
-     ║  CHAMPS (fields) :                                                  ║
-     ║   id       : numéro UNIQUE (jamais deux pareils)                    ║
-     ║   name     : nom du produit                                         ║
-     ║   desc     : petite description                                     ║
-     ║   price    : prix en DH (juste un nombre, ex: 89)                   ║
-     ║   oldPrice : ancien prix barré (0 = pas de promo)                   ║
-     ║   cat       : catégorie (doit exister dans CATEGORIES plus bas)     ║
-     ║   stock    : quantité en stock (0 = "Rupture de stock")             ║
-     ║   emoji    : icône si pas d'image (ex: "🦄")                         ║
-     ║   img      : lien d'une image (https://...) ou "" pour utiliser emoji║
-     ║   details  : liste de points, séparés par des virgules             ║
-     ║   rating   : note sur 5 (ex: 4.8)                                   ║
-     ║   reviews  : nombre d'avis                                          ║
-     ║   isNew    : true = badge "Nouveau", false = sans badge            ║
-     ║                                                                     ║
-     ║  ⚠️ Après modification : enregistrez le fichier sur GitHub.         ║
-     ║     Les changements sont PERMANENTS et visibles par tous. 🎉        ║
-     ╚═══════════════════════════════════════════════════════════════════╝ */
   const PRODUCTS = [
-    { id: 1, name: "Squishy Fromage 🧀", desc: "Un squishy fromage géant ultra satisfaisant ! Doux, élastique et lent à reprendre sa forme — parfait pour évacuer le stress en le pressant encore et encore. 🧀✨", price: 50, oldPrice: 0, cat: "Squishys", stock: 30, emoji: "🧀", img: "data:image/jpeg;base64,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...", details: ["Texture moelleuse et élastique", "Retour lent (slow rising)", "Anti-stress ultra satisfaisant", "Sans danger, réutilisable à l'infini"], rating: 4.9, reviews: 87, isNew: true }
+    { id: 1, name: "Squishy Fromage 🧀", desc: "Un squishy fromage géant ultra satisfaisant ! Doux, élastique et lent à reprendre sa forme — parfait pour évacuer le stress en le pressant encore et encore. 🧀✨", price: 50, oldPrice: 0, cat: "Squishys", stock: 30, emoji: "🧀", img: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCAJYAlgDASIAAhEBAxEB/8QAGwABAQEBAQEBAQAAAAAAAAAAAAECAwQFBgj/xAA5EAEBAAIBAwMDAgMECgIDAAAAAQIRIQMSMQRBUQVhcROBIjKRQkNioQYVI1JTcpLB0fAUgjPh8f/EABwBAQEBAQEBAQEBAAAAAAAAAAABAgMEBQYHCP/EADYRAQEAAgEDAgMFBgYCAwAAAAABAhEDBBIhMUEFBlETcYGR0QcyYaGx8BQVIiMz4RZTUpLx/9oADAMBAAIRAxEAPwD+qQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALlJN2yRLdAOV9V0MfPW6f/AFRrDrdLqfydTDL8VznPx26mU3969tbAdUA2bAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEzzx6eNyyymMnvXg6/1r0/S3MN9W/bw8fV/EOm6THu6jOY/f8Ap6t4ceWfjGPobcut6ro+nm+p1Mcftvl8L1H1n1HWlmOU6c/w/wDl4MupllbbbbfevxPxL5/4OLePHYHvXg6/1r0/S3MN9W/bw8fV/EOm6THu6jOY/f8Ap6t4ceWfjGPobcut6ro+nm+p1Mcftvl8L1H1n1HWlmOU6c/w/wDl4MupllbbbbfevxPxL5/4OLePHYHvXg6/1r0/S3MN9W/bw8fV/EOm6THu6jOY/f8Ap6t4ceWfjGPobcut6ro+nm+p1Mcftvl8L1H1n1HWlmOU6c/w/wDl4MupllbbbbfevxPxL5/4OLePHYGvX_oldOyfw9t/q/DdX8a63r7ftub8PSflPD24cOGHpE7rryndflrLLDDs1jN350w+XybxuW7tdXJeGf96mbyvKyXNky3P+p5Y6bE2bZ60GgYVpds7Ni6XvNptNDpXWfUfVPTem3Ln35fGPF8T1P1H1HqeMs7Mf93HiPJa/p/w0+f5jvHesP_Z", details: ["Texture moelleuse et élastique", "Retour lent (slow rising)", "Anti-stress ultra satisfaisant", "Sans danger, réutilisable à l'infini"], rating: 4.9, reviews: 87, isNew: true }
   ];
 
-  /* ── 🏷️ VOS CATÉGORIES — ajoutez/enlevez des noms entre guillemets ── */
   const CATEGORIES = ["Squishys"];
 
-  /* ── ⚙️ RÉGLAGES — bannière, livraison, mot de passe admin ── */
   const SETTINGS = {
     banner: "🚚 Livraison 20 DH partout au Maroc • Paiement à la livraison 💕",
-    delivery: 20,         // frais de livraison en DH
-    password: "admin123"  // mot de passe pour voir les commandes
+    delivery: 20,
+    password: "admin123"
   };
 
-  /* ═══════ ⛔ NE RIEN CHANGER EN DESSOUS DE CETTE LIGNE ⛔ ═══════ */
-
+  /* ── FUNCTIONAL JAVASCRIPT ── */
   function load(key, fallback) {
     try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
     catch { return fallback; }
   }
   function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
 
-  // Products / categories / settings come straight from the FILE (permanent).
-  // Only orders are saved in the browser (created by customers on this device).
   let products = JSON.parse(JSON.stringify(PRODUCTS));
   let categories = [...CATEGORIES];
   let settings = Object.assign({}, SETTINGS);
@@ -582,13 +549,11 @@
   let currentProduct = null;
   let activeCat = 'Tous';
 
-  /* ════════════ STOREFRONT ════════════ */
   function applySettings() {
     document.getElementById('heroBanner').innerHTML = settings.banner;
   }
 
   function getCategories() {
-    // managed list, plus any category found on products not yet in the list
     const fromProducts = products.map(p => p.cat).filter(Boolean);
     const merged = [...new Set([...categories, ...fromProducts])];
     return ['Tous', ...merged];
@@ -602,11 +567,6 @@
   }
   function setCat(c) { activeCat = c; renderCats(); renderList(); }
 
-  function imgHtml(p, cls) {
-    if (p.img) return `<img src="${p.img}" alt="${p.name}" class="${cls}"/>`;
-    return `<div class="${cls === 'mini-img' ? 'mini-img-emoji' : 'product-img-emoji'}">${p.emoji || '🎁'}</div>`;
-  }
-
   function renderList() {
     renderCats();
     const grid = document.getElementById('productGrid');
@@ -616,11 +576,7 @@
       (!q || p.name.toLowerCase().includes(q) || (p.desc || '').toLowerCase().includes(q))
     );
     if (list.length === 0) {
-      if (q) {
-        grid.innerHTML = `<div class="empty-state">😢 Aucun produit trouvé pour "${q}"</div>`;
-      } else {
-        grid.innerHTML = `<div class="empty-state"><div style="font-size:46px;margin-bottom:8px;">🚧</div>Bientôt disponible !<br><span style="font-size:13px;font-weight:600;color:#cba6f7;">Coming soon — de nouveaux produits arrivent dans cette catégorie.</span></div>`;
-      }
+      grid.innerHTML = q ? `<div class="empty-state">😢 Aucun produit trouvé</div>` : `<div class="empty-state">Bientôt disponible !</div>`;
       return;
     }
     grid.innerHTML = list.map(p => `
@@ -628,7 +584,7 @@
         <div class="mini-img-wrap">
           ${p.isNew && p.stock > 0 ? '<div class="mini-badge">✨ NOUVEAU</div>' : ''}
           ${p.stock <= 0 ? '<div class="oos-overlay">Rupture de stock</div>' : ''}
-          ${p.img ? `<img src="${p.img}" alt="${p.name}"/>` : `<div class="mini-img-emoji">${p.emoji || '🎁'}</div>`}
+          ${p.img && p.img.length > 50 ? `<img src="${p.img}" alt="${p.name}"/>` : `<div class="mini-img-emoji">${p.emoji || '🎁'}</div>`}
         </div>
         <div class="mini-info">
           <div class="mini-cat">${p.cat || ''}</div>
@@ -637,7 +593,6 @@
             <span class="mini-price">${p.price} DH</span>
             ${p.oldPrice ? `<span class="mini-price-old">${p.oldPrice} DH</span>` : ''}
           </div>
-          ${p.stock <= 0 ? '<div class="mini-oos">😢 Rupture de stock</div>' : ''}
         </div>
       </div>
     `).join('');
@@ -659,7 +614,7 @@
         <div class="product-img-wrap">
           ${p.isNew ? '<div class="badge-new">✨ NOUVEAU</div>' : ''}
           <div class="badge-stock" id="stockBadge">📦 ${p.stock} en stock</div>
-          ${p.img ? `<img src="${p.img}" alt="${p.name}"/>` : `<div class="product-img-emoji">${p.emoji || '🎁'}</div>`}
+          ${p.img && p.img.length > 50 ? `<img src="${p.img}" alt="${p.name}"/>` : `<div class="product-img-emoji">${p.emoji || '🎁'}</div>`}
         </div>
         <div class="product-info">
           <div class="product-name">${p.name}</div>
@@ -671,7 +626,6 @@
           <div class="price-row">
             <span class="price-main">${p.price} DH</span>
             ${p.oldPrice ? `<span class="price-old">${p.oldPrice} DH</span>` : ''}
-            ${p.oldPrice ? `<span class="price-tag">-${Math.round((1 - p.price / p.oldPrice) * 100)}%</span>` : ''}
           </div>
           <div class="delivery-info">🚚 Livraison ${settings.delivery} DH • Paiement à la livraison</div>
           <div class="qty-row">
@@ -731,11 +685,6 @@
       const remaining = currentProduct.stock - inCart;
       const sb = document.getElementById('stockBadge');
       if (sb) sb.textContent = `📦 ${Math.max(0, remaining)} en stock`;
-      const btn = document.getElementById('addCartBtn');
-      if (btn) {
-        if (remaining <= 0) { btn.disabled = true; btn.textContent = '😢 Rupture de stock'; }
-        else { btn.disabled = false; btn.innerHTML = '🛒 Ajouter au panier'; }
-      }
     }
     renderCart();
   }
@@ -750,7 +699,7 @@
     }
     el.innerHTML = cart.map((item, i) => `
       <div class="cart-item">
-        ${item.img ? `<img src="${item.img}" alt="${item.name}" style="width:56px;height:56px;object-fit:cover;border-radius:12px;flex-shrink:0;box-shadow:0 2px 10px #f472b630"/>` : `<div style="font-size:36px;width:56px;text-align:center;flex-shrink:0">${item.emoji || '🎁'}</div>`}
+        ${item.img && item.img.length > 50 ? `<img src="${item.img}" style="width:56px;height:56px;object-fit:cover;border-radius:12px;"/>` : `<div style="font-size:36px;width:56px;text-align:center">${item.emoji || '🎁'}</div>`}
         <div class="cart-item-info">
           <div class="cart-item-name">${item.name}</div>
           <div class="cart-item-price">${item.qty} × ${item.price} DH = ${item.qty * item.price} DH</div>
@@ -808,14 +757,12 @@
     orders.unshift(order);
     save('tf_orders', orders);
 
-    // decrement stock for this visit (note: real stock is set in the file)
     cart.forEach(ci => {
       const p = products.find(x => x.id === ci.id);
       if (p) p.stock = Math.max(0, p.stock - ci.qty);
     });
 
-    document.getElementById('successMsg').textContent =
-      `Merci ${name} ! Votre commande de ${total} DH sera livrée à ${address}. Nous vous appellerons au ${phone} pour confirmer. 💕`;
+    document.getElementById('successMsg').textContent = `Merci ${name} ! Votre commande de ${total} DH sera livrée à ${address}. 💕`;
     closeCheckoutPanel();
     document.getElementById('successOverlay').classList.add('open');
 
@@ -834,7 +781,7 @@
     setTimeout(() => t.classList.remove('show'), 2500);
   }
 
-  /* ════════════ ADMIN ════════════ */
+  /* ── ADMIN LOGIC ── */
   function openAdmin() {
     document.getElementById('storefront').style.display = 'none';
     document.getElementById('adminWrap').classList.add('show');
@@ -851,7 +798,6 @@
     document.getElementById('heroBanner').style.display = 'block';
     backToList();
     renderList();
-    window.scrollTo(0, 0);
   }
 
   function tryLogin() {
@@ -864,7 +810,7 @@
       document.getElementById('loginErr').classList.add('show');
     }
   }
-  function adminLogout() { document.getElementById('adminLogin').style.display = 'block'; document.getElementById('adminDash').style.display = 'none'; document.getElementById('adminPass').value = ''; document.getElementById('loginErr').classList.remove('show'); }
+  function adminLogout() { document.getElementById('adminLogin').style.display = 'block'; document.getElementById('adminDash').style.display = 'none'; }
 
   function switchAdminTab(tab, btn) {
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -882,7 +828,6 @@
       <div class="stat-card"><div class="stat-num">${orders.length}</div><div class="stat-label">Commandes</div></div>
       <div class="stat-card"><div class="stat-num">${revenue} DH</div><div class="stat-label">Chiffre d'affaires</div></div>
       <div class="stat-card"><div class="stat-num">${pending}</div><div class="stat-label">À traiter</div></div>
-      <div class="stat-card"><div class="stat-num">${products.length}</div><div class="stat-label">Produits</div></div>
     `;
   }
 
@@ -890,7 +835,7 @@
 
   function renderOrders() {
     const el = document.getElementById('ordersList');
-    if (orders.length === 0) { el.innerHTML = '<div class="cart-empty">📭<br>Aucune commande pour le moment</div>'; return; }
+    if (orders.length === 0) { el.innerHTML = '<div class="cart-empty">📭<br>Aucune commande</div>'; return; }
     el.innerHTML = orders.map(o => `
       <div class="order-card">
         <div class="order-top">
@@ -900,11 +845,10 @@
           </div>
           <span class="status-badge st-${o.status}">${STATUS_LABELS[o.status]}</span>
         </div>
-        <div class="order-customer">👤 ${o.customer}</div>
+        <div class="order-customer">👤 ${o.customer} — 📞 ${o.phone}</div>
         <div class="order-detail">📍 ${o.address}</div>
-        <div class="order-detail">📞 ${o.phone}</div>
-        <div class="order-items">${o.items.map(i => `${i.qty}× ${i.name} (${i.qty * i.price} DH)`).join('<br>')}</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div class="order-items">${o.items.map(i => `${i.qty}× ${i.name}`).join('<br>')}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
           <span class="order-total">Total : ${o.total} DH</span>
           <select class="status-select" onchange="updateStatus('${o.id}', this.value)">
             ${Object.keys(STATUS_LABELS).map(s => `<option value="${s}" ${s === o.status ? 'selected' : ''}>${STATUS_LABELS[s]}</option>`).join('')}
@@ -921,19 +865,17 @@
 
   function renderAdminProducts() {
     const el = document.getElementById('adminProductList');
-    if (products.length === 0) { el.innerHTML = '<div class="cart-empty">📦<br>Aucun produit</div>'; return; }
     el.innerHTML = products.map(p => `
       <div class="admin-product-row">
-        <div class="admin-product-img">${p.img ? `<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;border-radius:12px"/>` : (p.emoji || '🎁')}</div>
+        <div class="admin-product-img">${p.img && p.img.length > 50 ? `<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;border-radius:12px"/>` : (p.emoji || '🎁')}</div>
         <div class="admin-product-info">
-          <div class="admin-product-name">${p.name} ${p.stock <= 0 ? '🔴' : ''}</div>
-          <div class="admin-product-meta">${p.price} DH • ${p.cat || '—'} • Stock: ${p.stock}</div>
+          <div class="admin-product-name">${p.name}</div>
+          <div class="admin-product-meta">${p.price} DH • Stock: ${p.stock}</div>
         </div>
       </div>
     `).join('');
   }
 
-  /* ── INIT ── */
   applySettings();
   renderList();
   updateCartUI();
